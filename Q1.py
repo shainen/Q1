@@ -2,7 +2,7 @@ import random
 import numpy as np
 
 FLIPS = 10
-SAMPLES = 100000
+SAMPLES = 1000000
 q2UPBOUND = 6
 q3UPBOUND = 6
 q3LOWBOUND = 5
@@ -30,22 +30,19 @@ def quest1(sp):
 
 def quest2(sp):
     num = 0
-    den = len(sp)
     for fl in sp:
         if fl > q2UPBOUND:
             num+=1
-    return num/den
+    return num
 
 def quest3num(sp):
     num = 0
-    den = 0
     for fl in sp:
         if fl > q3UPBOUND:
             num+=1
     return num
 
 def quest3den(sp):
-    num = 0
     den = 0
     for fl in sp:
         if fl > q3LOWBOUND:
@@ -54,11 +51,10 @@ def quest3den(sp):
 
 def quest4(st):
     num = 0
-    den = len(st)
     for fl, he in st:
         if fl > q4UPBOUND and he > q4NUMHEADS:
             num+=1
-    return num/den
+    return num
 
 def allquestsion(st):
     justflips = just_sp(st)
