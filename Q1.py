@@ -2,7 +2,7 @@ import random
 import numpy as np
 
 FLIPS = 10
-SAMPLES = 1000000
+SAMPLES = 100000
 q2UPBOUND = 6
 q3UPBOUND = 6
 q3LOWBOUND = 5
@@ -20,7 +20,7 @@ def splits(coins):
     return splits
 
 def stats(coins):
-    return [splits(coins),np.sum(coins)]
+    return (splits(coins),np.sum(coins))
 
 def just_sp(stat):
     return list(zip(*stat))[0]
@@ -60,13 +60,21 @@ def allquestsion(st):
     justflips = just_sp(st)
     return (quest1(justflips),quest2(justflips),quest3num(justflips),quest3den(justflips),quest4(st))
 
+totflips = 0
+q2num=0
+q3den=0
+q4num=0
+for _ in range(SAMPLES):
+    groups, heads = stats(coins(FLIPS))
+    totflips += groups
+    if groups > q2UPBOUND:
+        q2num+=1
+    if groups > q3LOWBOUND:
+        q3den+=1
+    if groups > q4UPBOUND and heads > q4NUMHEADS:
+        q4num+=1
 
-stats1=[stats(coins(FLIPS)) for _ in range(SAMPLES)]
+ans = [totflips,q2num,q3den,q4num,SAMPLES]
+        
+np.savetxt("f"+str(FLIPS)+"s"+str(SAMPLES)+".dat",ans)
 
-stats2=[stats(coins(FLIPS)) for _ in range(SAMPLES)]
-
-ans1=allquestsion(stats1)
-ans2=allquestsion(stats2)
-
-np.savetxt("f"+str(FLIPS)+"s"+str(SAMPLES)+"1.dat",ans1)
-np.savetxt("f"+str(FLIPS)+"s"+str(SAMPLES)+"2.dat",ans2)
