@@ -10,13 +10,13 @@ topic=getcwd().split('/')[-4]
 qsubfile = Template("""
 #!/bin/sh
 #PBS -j oe
-#PBS -l mem=300mb
+#PBS -l mem=1000mb
 #PBS -V
 #PBS -m ea
 #PBS -M shainen@gmail.com
 
 RUN_NAME=${rname}
-SCRATCH_DIR=/data/$$USER/$$RUN_NAME
+SCRATCH_DIR=/data/$$USER/$$RUN_NAME/r$$PBS_ARRAYID
 LOCAL_DIR=/home/shainen/${tp}/build
 
 mkdir -p $$SCRATCH_DIR
